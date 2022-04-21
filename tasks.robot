@@ -21,7 +21,7 @@ Check for a certain email
     # Aanmaken van een nieuwe folder om hierin de toegevoegde bestanden toe te voegen
     Create Directory    ${email_attachments_dir}
     ${emails}=    Get Emails
-    ...    account_name=niels@brobots.be
+    ...    account_name=nielsc97@gmail.com
     ...    email_filter=[Subject]='Games'
     ...    save_attachments=${TRUE}
     ...    attachment_folder=${email_attachments_dir}
@@ -240,6 +240,19 @@ Write prices to Excel file
     Save Workbook
     Close Workbook
 
+Remove email
+    RPA.Outlook.Application.Open Application
+    RPA.Outlook.Application.Move Emails
+    ...    account_name=niels@brobots.be
+    ...    source_folder=Inbox
+    ...    email_filter=[Subject]='Games'
+    ...    target_folder=Deleted Items
+    RPA.Outlook.Application.Quit Application
+
+Send mail back
+    Send Email    recipients=${Sender}    subject=RE: ${Email_subject}    body=Check the attachment    attachments=${email_attachments_dir}${/}${File}
+
+*** Tasks ***
 Do the Office part
     Check for a certain email
     Get games from Excel file
@@ -256,23 +269,9 @@ Do the Steam part
     Search for prices on Steam
     Write prices to Excel file
 
-Remove email
-    RPA.Outlook.Application.Open Application
-    RPA.Outlook.Application.Move Emails
-    ...    account_name=niels@brobots.be
-    ...    source_folder=Inbox
-    ...    email_filter=[Subject]='Games'
-    ...    target_folder=Deleted Items
-    RPA.Outlook.Application.Quit Application
-
 Send mail back
-    Send Email    recipients=${Sender}    subject=RE: ${Email_subject}    body=Check the attachment    attachments=${email_attachments_dir}${/}${File}
-
-*** Tasks ***
-Search review scores on the internet, then search the prices on Steam and send them by mail in an Excel file
-    Do the Office part
-    Do the Browser part
-    Do the Steam part
     Send mail back
-    # Remove email
-    # [Teardown]    OperatingSystem.Remove Directory    ${email_attachments_dir}    recursive=True
+
+Remove email
+    Remove email
+    [Teardown]    OperatingSystem.Remove Directory    ${email_attachments_dir}    recursive=True

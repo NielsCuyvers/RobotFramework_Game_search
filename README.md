@@ -247,6 +247,7 @@ Write review score to Excel file
 Hieronder gebeurt alles dat te maken heeft met de Steam applicatie. Het opzoeken van games en het lezen van hun prijzen.
 #### **Openen van een applicatie**
 Als eerst wordt Steam geopent. Wegens dat Steam altijd in het begin zoekt naar updates kan het soms lang duren (afhankelijk van systeem) vooraleer Steam opstart. Daarom is er een timeout van 60 seconden ingesteld.
+![Voorbeeld Steam update](images/Example_steam_update.jpg)
 ```Robot framework
 Open Steam
     ${appName}=    Set Variable    Steam
@@ -258,8 +259,11 @@ Eerst wordt er voor één game een prijs gezocht op Steam. Dit gebeurt door te z
 Na vinden van dit element wordt de game ingegeven en wordt er op enter gedrukt. Daarna komt er een nieuwe pagina open met zoekresultaten. Dit wordt attribuut wordt opgeslagen in een variabelen om zo de tekst eruit te halen.
 
 Via regular expression wordt er gezocht alleen de zoekresultaten. Daarna wordt er gezocht naar de game titel gevolg door een €-symbool. Als er een zoekresultaat is wordt hierna de datum gezocht. dit is altijd hetzelfde formaat 'dd MMM, yyyy' en daarna komt de prijs. Als er in de prijs een %-symbool staat zit er een korting in het spel en willen we dit resultaat hebben.
+![Voorbeeld Steam game met prijs](images/Example_steam_price.jpg)
 
 Het kan ook zijn dat een spel gratis is als dit is geven we 'Free' mee.
+![Voorbeeld Steam game gratis](images/Example_steam_free.jpg)
+
 Als er geen prijs wordt gevonden geven we 'Price not found' mee.
 ```Robot framework
 Search for price on Steam

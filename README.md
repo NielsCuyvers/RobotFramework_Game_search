@@ -54,9 +54,9 @@ ${email_attachments_dir}=    ${OUTPUT_DIR}${/}email_attachments
 ### **Office (Keywords)**
 #### **Lezen van mails**
 Er wordt een mail ingelezen in een bepaalde inbox met een bepaald onderwerp. Deze mail wordt ingelezen en de toegevoegde bestanden worden lokaal opgeslagen op het systeem.
-Hier wordt ook de naam van het bestand gelezen zodat dit later in het project gebruikt kan worden om data in op te slaan.
+Hier wordt ook de naam van het bestand gelezen zodat dit later in het project gebruikt kan worden om data in op te slagen.
 
-##### Paramaters
+##### Extra info paramaters
 |Parameter|Info|
 |------|------|
 |folder_name|Verander de naam van de folder als je ergens anders wilt zoeken. Dit is taal gevoelig. (Inbox != Postvak IN)|

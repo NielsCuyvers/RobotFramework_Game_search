@@ -112,6 +112,7 @@ Get games from Excel file
 ```
 
 #### **Terug sturen van mail met bestand**
+Hier wordt een email verstuurd met de behandelde bijlage naar de zender van de binnenkomende email.
 ```Robot framework
 Send mail back
     Send Email    recipients=${Sender}    subject=RE: ${Email_subject}    body=Check the attachment    attachments=${email_attachments_dir}${/}${File}

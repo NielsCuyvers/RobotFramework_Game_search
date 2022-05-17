@@ -57,7 +57,7 @@ In dit gedeelte gebeurd alles dat te maken heeft met Office 365 applicaties (Exc
 Er wordt een mail ingelezen in een bepaalde inbox met een bepaald onderwerp. Deze mail wordt ingelezen en de toegevoegde bestanden worden lokaal opgeslagen op het systeem.
 Hier wordt ook de naam van het bestand gelezen zodat dit later in het project gebruikt kan worden om data in op te slagen.
 
-##### Extra info paramaters
+##### **Extra info paramaters**
 |Parameter|Info|
 |------|------|
 |folder_name|Verander de naam van de folder als je ergens anders wilt zoeken. Dit is taal gevoelig. (Inbox != Postvak IN)|
@@ -122,15 +122,15 @@ Send mail back
 ### **Browser (Keywords)**
 Hier gebeurt alles dat te maken heeft met browsers. Het openen, opzoeken en lezen van data van websites.
 #### **Checken voor alternatieve namen op Google**
-Wegens de preciesheid van de robot wordt er online voor elke game een alternative titel schrijfwijzen opgezocht. Zo is er meer kans dat de gevraagde game gevonden kan worden op de recentie website en op de Steam applicatie. Voor de robot is 'Grand Theft Auto V' niet hetzelfde als 'Grand Theft Auto 5'.
-##### Openen van een browser
-Hey 'Open Avalible Browser' keyword opent de meegegeven website in eender welke geïnstalleerde browser.
+Wegens de preciesheid van de robot wordt er online voor elke game een alternative titel schrijfwijzen opgezocht. Zo is er meer kans dat de gevraagde game gevonden kan worden op de recencie website en op de Steam applicatie. Voor de robot is 'Grand Theft Auto V' niet hetzelfde als 'Grand Theft Auto 5'.
+##### **Openen van een browser**
+Het 'Open Avalible Browser' keyword opent de meegegeven website in eender welke geïnstalleerde browser.
 ```Robot framework
 Open Google in a browser
     Open Available Browser    url=https://www.google.com
     Sleep    2
 ```
-##### Checken naar een bestaand HTML element
+##### **Checken naar een bestaand HTML element**
 Wegens dat er gebruik wordt gemaakt van de google zoekmachine kan het mogelijk zijn dat er een pop-up tevoorschijn komt. Deze zou geaccepteerd moeten worden. Het is mogelijk om deze pop-up te doen verwijderen door op een knop te drukken die 'Ik ga akkoord' heet. Deze knop is taal gebonden. Als de pop-up niet verschijnt gaat de code gewoon door.
 
 Vervolgens wordt er gezocht naar de alternative titel schrijfwijzen van elke game. Dit gebeurt door de game op te zoeken en via Xpath te zoeken naar een html h2 element met als attribute 'data-attrid="title"'.
@@ -171,7 +171,11 @@ Check game alt name
     Close Browser
 ```
 #### **Nakijken van recensie score op Gamespot**
-##### Checken van één game
+Hier wordt voor elke game een recencie score opgezocht op Gamespot.
+##### **Checken van één game**
+Eerst wordt er voor één game een recensie score opgezocht. Dit gebeurt door via de Gamespot zoekmachine een game titel in te geven. De zoek resultaten worden getoont in een HTML hyperlink element in een h4 element. Via Xpath zoeken we of eender welk van deze combinatie van elementen overeen komt met de game titel. Als dit gevonden is word erop geklikt. Als de game niet wordt gevonden geven we de tekst 'Game not found' mee.
+
+Daarna wordt er op de recensie website van de game de score van Gamespot gelezen er wordt deze meegegeven met eht resultaat van dit keyword.
 ```Robot framework
 Get Gamespots review score
     [Arguments]    ${game}
@@ -196,7 +200,10 @@ Get Gamespots review score
     END
     [Return]    ${result}
 ```
-##### Checken van een lijst van games
+##### **Checken van een lijst van games**
+Als eerst wordt er gekeken of er een pop-up over cookies verschijnt op de website. Na deze te accepteren wordt er met gebruikmakend van het gedeclareerd keyword hierboven voor elke game de recensie opgezocht. Als dit keyword de waarde 'Game not found' terug geeft wordt er gezocht op de alternatieve schijfwijzen.
+
+Deze lijst met game recensies wordt daarna globaal gezet om zo deze later te gebruiken.
 ```Robot framework
 Get Gamespots review scores
     ${Review_results}=    Create List
@@ -221,6 +228,7 @@ Get Gamespots review scores
 
 ```
 #### **Wegschrijven van recensies naar een Excel bestand**
+Als laatste worden de game recensies weggeschreven op een gefixeerd plaats in het Excel bestand waar de game titels van gelezen werden.
 ```Robot framework
 Write review score to Excel file
     Open Workbook    ${email_attachments_dir}${/}${File}

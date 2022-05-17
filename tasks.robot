@@ -22,6 +22,7 @@ Check for a certain email
     Create Directory    ${email_attachments_dir}
     ${emails}=    Get Emails
     ...    account_name=nielsc97@gmail.com
+    ...    folder_name=Inbox
     ...    email_filter=[Subject]='Games'
     ...    save_attachments=${TRUE}
     ...    attachment_folder=${email_attachments_dir}

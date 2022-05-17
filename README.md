@@ -18,12 +18,16 @@ De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
     * [Samenvoeging](#samenvoeging-keywords)
 
 Als u de redenering van Robot Framework wilt volgen staat er achter elke titel in welke sectie de code is neergetypt.
+Als u het Robot Framework uitvoert zorg dat alle applicaties die tevoorschijn komen tijdens de uitvoreing op het primare scherm staan. Dit zou normaal automatisch gebeuren.
 
 ### **Implementaties (Settings)**
 ```Robot framework
 Documentation     Search review scores on the internet, then search the prices on Steam and send them by mail in an Excel file
 ```
 #### **Libraries**
+Voor dit proejct maak ik gebruik van de **Outlook** en **Excel** libraries van RPA. Dit zorgt er voor dat ik email kan uitlezen met hun bijgevoegde bestanden en dat ik Excel bestanden kan uitlezen om zo data te lezen en weg te schrijven.
+Er wordt ook gebruik gemaakt van de **Collections** library zodat er lijsten kunnen aangemaakt worden.
+Ook is het nodig om interactie te hebben met de browsers maar ook met de GUI van Windows. Dit wordt mogelijk gemaakt door de **Browser**, **Desktop**, **Windows** en **OperatingSystem** libraries. Als laatste wordt er ook gebruik gemaakt van de **String** library om tekst variabelen op te slagen en de **Tables** library om data tabellen te maken.
 ```Robot framework
 Library           RPA.Excel.Files
 Library           RPA.Outlook.Application
@@ -49,11 +53,18 @@ ${email_attachments_dir}=    ${OUTPUT_DIR}${/}email_attachments
 #### **Lezen van mails**
 Er wordt een mail ingelezen in een bepaalde inbox met een bepaald onderwerp. Deze mail wordt ingelezen en de toegevoegde bestanden worden lokaal opgeslagen op het systeem.
 Hier wordt ook de naam van het bestand gelezen zodat dit later in het project gebruikt kan worden om data in op te slaan.
+
+##### Paramaters
+|Parameter|Info|
+|------|------|
+|folder_name|Verander de naam van de folder als je ergens anders wilt zoeken. Dit is taal gevoelig. (Inbox != Postvak IN)|
+
 ```Robot framework
 Check for a certain email
     Create Directory    ${email_attachments_dir}
     ${emails}=    Get Emails
     ...    account_name=niels@brobots.be
+    ...    folder_name=Inbox
     ...    email_filter=[Subject]='Games'
     ...    save_attachments=${TRUE}
     ...    attachment_folder=${email_attachments_dir}
@@ -310,7 +321,7 @@ Write prices to Excel file
 
 
 
-### **Samenvoeging (Keywords)**
+### **Samenvoeging (Tasks)**
 Door nu alle Keywords samen te voegen kunnen we het project gebruiken om recensies en prijzen van video games te zoeken.
 
 ```Robot framework

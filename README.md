@@ -120,14 +120,22 @@ Send mail back
 ```
 
 ### **Browser (Keywords)**
+Hier gebeurt alles dat te maken heeft met browsers. Het openen, opzoeken en lezen van data van websites.
 #### **Checken voor alternatieve namen op Google**
+Wegens de preciesheid van de robot wordt er online voor elke game een alternative titel schrijfwijzen opgezocht. Zo is er meer kans dat de gevraagde game gevonden kan worden op de recentie website en op de Steam applicatie. Voor de robot is 'Grand Theft Auto V' niet hetzelfde als 'Grand Theft Auto 5'.
 ##### Openen van een browser
+Hey 'Open Avalible Browser' keyword opent de meegegeven website in eender welke geïnstalleerde browser.
 ```Robot framework
 Open Google in a browser
     Open Available Browser    url=https://www.google.com
     Sleep    2
 ```
 ##### Checken naar een bestaand HTML element
+Wegens dat er gebruik wordt gemaakt van de google zoekmachine kan het mogelijk zijn dat er een pop-up tevoorschijn komt. Deze zou geaccepteerd moeten worden. Het is mogelijk om deze pop-up te doen verwijderen door op een knop te drukken die 'Ik ga akkoord' heet. Deze knop is taal gebonden. Als de pop-up niet verschijnt gaat de code gewoon door.
+
+Vervolgens wordt er gezocht naar de alternative titel schrijfwijzen van elke game. Dit gebeurt door de game op te zoeken en via Xpath te zoeken naar een html h2 element met als attribute 'data-attrid="title"'.
+![Voorbeeld alternatieve titel schijfwijzen](images/Example_alt_name.jpg)
+ Als deze gevonden is wordt deze opgeslagen in een nieuwe lijst. Anders wordt de gewone schijfwijzen opgeslagen is deze lijst.
 ```Robot framework
 Check game alt name
     ${Games_alt_name}    Create List

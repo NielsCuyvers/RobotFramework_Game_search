@@ -47,6 +47,7 @@ Task Setup        RPA.Outlook.Application.Open Application
 Suite Teardown    RPA.Outlook.Application.Quit Application
 ```
 ### **Variabelen**
+Hier worden de globalen variabelen van het begin van de code aangemaakt. Hier wordt een pad opgeslagen waar later alle **email attachments** worden opgeslagen. De **OUTPUT_DIR** variabelen geeft het geconfigureerde pad mee van het project. Dit is standaard het pad van het project.
 ```Robot framework
 ${email_attachments_dir}=    ${OUTPUT_DIR}${/}email_attachments
 ```

@@ -244,13 +244,23 @@ Write review score to Excel file
 ```
 
 ### **Steam (Keywords)**
-#### **Open van een applicatie**
+Hieronder gebeurt alles dat te maken heeft met de Steam applicatie. Het opzoeken van games en het lezen van hun prijzen.
+#### **Openen van een applicatie**
+Als eerst wordt Steam geopent. Wegens dat Steam altijd in het begin zoekt naar updates kan het soms lang duren (afhankelijk van systeem) vooraleer Steam opstart. Daarom is er een timeout van 60 seconden ingesteld.
 ```Robot framework
 Open Steam
     ${appName}=    Set Variable    Steam
     Open From Search    ${appName}    ${appName}    timeout=60
 ```
 #### **Zoeken van één prijs in Steam**
+Eerst wordt er voor één game een prijs gezocht op Steam. Dit gebeurt door te zoeken naar een GUI element genaamt 'store_nav_search_term'. Dit is de Steam search balk, ook op de website. De store pagina op de Steam applicatie gebruikt eigelijk HTML en heeft dus dezelfde layout en stijl als de website.
+
+Na vinden van dit element wordt de game ingegeven en wordt er op enter gedrukt. Daarna komt er een nieuwe pagina open met zoekresultaten. Dit wordt attribuut wordt opgeslagen in een variabelen om zo de tekst eruit te halen.
+
+Via regular expression wordt er gezocht alleen de zoekresultaten. Daarna wordt er gezocht naar de game titel gevolg door een €-symbool. Als er een zoekresultaat is wordt hierna de datum gezocht. dit is altijd hetzelfde formaat 'dd MMM, yyyy' en daarna komt de prijs. Als er in de prijs een %-symbool staat zit er een korting in het spel en willen we dit resultaat hebben.
+
+Het kan ook zijn dat een spel gratis is als dit is geven we 'Free' mee.
+Als er geen prijs wordt gevonden geven we 'Price not found' mee.
 ```Robot framework
 Search for price on Steam
     [Arguments]    ${game}
@@ -303,6 +313,7 @@ Search for price on Steam
     [Return]    ${price_result}
 ```
 #### **Zoeken van meerdere prijzen in Steam**
+Net zoals bij de het opzoeken naar de game recencies wordt er voor elke game een prijs opgezocht. Als dit resultaat 'Price not found' heeft wordt er gezocht op de alternatieve schrijfwijzen. Daarna wordt de lijst met resultaten globaal gezet om later weg te schrijven.
 ```Robot framework
 Search for prices on Steam
     ${Price_results}=    Create List
@@ -321,6 +332,7 @@ Search for prices on Steam
     Set Global Variable    ${Price_results}
 ```
 #### **Wegschrijven van prijzen naar een Excel bestand**
+Als laatste worden de game prijzen weggeschreven op een gefixeerd plaats in het Excel bestand waar de game titels van gelezen werden.
 ```Robot framework
 Write prices to Excel file
     Open Workbook    ${email_attachments_dir}${/}${File}
@@ -334,13 +346,6 @@ Write prices to Excel file
     Save Workbook
     Close Workbook
 ```
-
-
-
-
-
-
-
 ### **Samenvoeging (Tasks)**
 Door nu alle Keywords samen te voegen kunnen we het project gebruiken om recensies en prijzen van video games te zoeken.
 
@@ -361,6 +366,4 @@ Do the Steam part
     Search for prices on Steam
     Write prices to Excel file
 ```
-
-
 

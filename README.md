@@ -41,6 +41,7 @@ Library           String
 Library           RPA.Tables
 ```
 #### **Setup**
+Deze keywords maken het mogelijke om iets te laten gebeuren in het begin van het uitvoeren van de code en op het einde van de code, ook al geeft de code een error. Dit is vergelijkbaar met de Try-catch-**finally** declaratie.
 ```Robot framework
 Task Setup        RPA.Outlook.Application.Open Application
 Suite Teardown    RPA.Outlook.Application.Quit Application

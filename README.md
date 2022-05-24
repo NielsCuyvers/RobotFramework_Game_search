@@ -3,8 +3,7 @@
 Dit project is tot stand gekomen met gebruikmakend van het Robot framework.
 
 ## Uitvoering
-Hieronder wordt er stap voor stap uitgelegt hoe het project is gecodeerd.
-De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
+Hieronder wordt er stap voor stap uitgelegd hoe het project is gecodeerd. De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
 
 * Settings
     * [Implementaties](#implementaties-settingssettings)
@@ -18,8 +17,7 @@ De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
 * Tasks
     * [Samenvoeging](#samenvoeging-keywords)
 
-Als u de redenering van Robot Framework wilt volgen staat er achter elke titel in welke sectie de code is neergetypt.
-Als u het Robot Framework uitvoert zorg dat alle applicaties die tevoorschijn komen tijdens de uitvoreing op het primare scherm staan. Dit zou normaal automatisch gebeuren.
+Als u de redenering van Robot Framework wilt volgen staat er achter elke titel in welke sectie de code is neer getypt. Als u het Robot Framework uitvoert zorg dat alle applicaties die tevoorschijn komen tijdens de uitvoering op het primaire scherm staan. Dit zou normaal automatisch gebeuren.
 
 ### Implementaties (Settings)
 ```Robot framework

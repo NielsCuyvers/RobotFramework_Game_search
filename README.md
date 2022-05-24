@@ -1,10 +1,11 @@
-# **Video games recensie en prijs**
-## **Waarneming**
+# Video games recensie en prijs
+## Waarneming
 Dit project is tot stand gekomen met gebruikmakend van het Robot framework.
 
-## **Uitvoering**
+## Uitvoering
 Hieronder wordt er stap voor stap uitgelegt hoe het project is gecodeerd.
 De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
+
 * Settings
     * [Implementaties](#implementaties-settingssettings)
         * [Libraries](#libraries)
@@ -20,14 +21,14 @@ De stappen zijn ingedeeld in vier hoofdstukken, namelijk:
 Als u de redenering van Robot Framework wilt volgen staat er achter elke titel in welke sectie de code is neergetypt.
 Als u het Robot Framework uitvoert zorg dat alle applicaties die tevoorschijn komen tijdens de uitvoreing op het primare scherm staan. Dit zou normaal automatisch gebeuren.
 
-### **Implementaties (Settings)**
+### Implementaties (Settings)
 ```Robot framework
 Documentation     Search review scores on the internet, then search the prices on Steam and send them by mail in an Excel file
 ```
-#### **Libraries**
-Voor dit proejct maak ik gebruik van de **Outlook** en **Excel** libraries van RPA. Dit zorgt er voor dat ik email kan uitlezen met hun bijgevoegde bestanden en dat ik Excel bestanden kan uitlezen om zo data te lezen en weg te schrijven.
-Er wordt ook gebruik gemaakt van de **Collections** library zodat er lijsten kunnen aangemaakt worden.
-Ook is het nodig om interactie te hebben met de browsers maar ook met de GUI van Windows. Dit wordt mogelijk gemaakt door de **Browser**, **Desktop**, **Windows** en **OperatingSystem** libraries. Als laatste wordt er ook gebruik gemaakt van de **String** library om tekst variabelen op te slagen en de **Tables** library om data tabellen te maken.
+#### Libraries
+Voor dit proejct maak ik gebruik van de Outlook en Excel libraries van RPA. Dit zorgt er voor dat ik email kan uitlezen met hun bijgevoegde bestanden en dat ik Excel bestanden kan uitlezen om zo data te lezen en weg te schrijven.
+Er wordt ook gebruik gemaakt van de Collections library zodat er lijsten kunnen aangemaakt worden.
+Ook is het nodig om interactie te hebben met de browsers maar ook met de GUI van Windows. Dit wordt mogelijk gemaakt door de Browser, Desktop, Windows en OperatingSystem libraries. Als laatste wordt er ook gebruik gemaakt van de String library om tekst variabelen op te slagen en de Tables library om data tabellen te maken.
 ```Robot framework
 Library           RPA.Excel.Files
 Library           RPA.Outlook.Application
@@ -40,27 +41,27 @@ Library           RPA.Browser    auto_close=${FALSE}
 Library           String
 Library           RPA.Tables
 ```
-#### **Setup**
-Deze keywords maken het mogelijke om iets te laten gebeuren in het begin van het uitvoeren van de code en op het einde van de code, ook al geeft de code een error. Dit is vergelijkbaar met de Try-catch-**finally** declaratie.
+#### Setup
+Deze keywords maken het mogelijke om iets te laten gebeuren in het begin van het uitvoeren van de code en op het einde van de code, ook al geeft de code een error. Dit is vergelijkbaar met de Try-catch-finally declaratie.
 ```Robot framework
 Task Setup        RPA.Outlook.Application.Open Application
 Suite Teardown    RPA.Outlook.Application.Quit Application
 ```
-### **Variabelen**
-Hier worden de globalen variabelen van het begin van de code aangemaakt. Hier wordt een pad opgeslagen waar later alle **email attachments** worden opgeslagen. De **OUTPUT_DIR** variabelen geeft het geconfigureerde pad mee van het project. Dit is standaard het pad van het project.
+### Variabelen
+Hier worden de globalen variabelen van het begin van de code aangemaakt. Hier wordt een pad opgeslagen waar later alle email attachments worden opgeslagen. De OUTPUT_DIR variabelen geeft het geconfigureerde pad mee van het project. Dit is standaard het pad van het project.
 ```Robot framework
 ${email_attachments_dir}=    ${OUTPUT_DIR}${/}email_attachments
 ```
-### **Office (Keywords)**
+### Office (Keywords)
 In dit gedeelte gebeurd alles dat te maken heeft met Office 365 applicaties (Excel en Outlook). Alleen het wegschrijven van data naar Excel gebeurt hier niet.
-#### **Lezen van mails**
+#### Lezen van mails
 Er wordt een mail ingelezen in een bepaalde inbox met een bepaald onderwerp. Deze mail wordt ingelezen en de toegevoegde bestanden worden lokaal opgeslagen op het systeem.
 Hier wordt ook de naam van het bestand gelezen zodat dit later in het project gebruikt kan worden om data in op te slagen.
 
-##### **Extra info paramaters**
-|Parameter|Info|
-|------|------|
-|folder_name|Verander de naam van de folder als je ergens anders wilt zoeken. Dit is taal gevoelig. (Inbox != Postvak IN)|
+##### Extra info paramaters
+| Parameter   | Info                                                                                                         |
+| ----------- | ------------------------------------------------------------------------------------------------------------ |
+| folder_name | Verander de naam van de folder als je ergens anders wilt zoeken. Dit is taal gevoelig. (Inbox != Postvak IN) |
 
 ```Robot framework
 Check for a certain email
@@ -94,7 +95,7 @@ Check for a certain email
         Fail    No new mails
     END
 ```
-#### **Lezen van data uit Excel**
+#### Lezen van data uit Excel
 De data uit een gestructureerd Excel bestand wordt gelezen en de data uit de kolom met naam 'Game' wordt opgelaan in een lijst die later in het project gebuikt wordt als opzoek materiaal.
 ```Robot framework
 Get games from Excel file
@@ -112,25 +113,25 @@ Get games from Excel file
     Close Workbook
 ```
 
-#### **Terug sturen van mail met bestand**
+#### Terug sturen van mail met bestand
 Hier wordt een email verstuurd met de behandelde bijlage naar de zender van de binnenkomende email.
 ```Robot framework
 Send mail back
     Send Email    recipients=${Sender}    subject=RE: ${Email_subject}    body=Check the attachment    attachments=${email_attachments_dir}${/}${File}
 ```
 
-### **Browser (Keywords)**
+### Browser (Keywords)
 Hier gebeurt alles dat te maken heeft met browsers. Het openen, opzoeken en lezen van data van websites.
-#### **Checken voor alternatieve namen op Google**
+#### Checken voor alternatieve namen op Google
 Wegens de preciesheid van de robot wordt er online voor elke game een alternative titel schrijfwijzen opgezocht. Zo is er meer kans dat de gevraagde game gevonden kan worden op de recencie website en op de Steam applicatie. Voor de robot is 'Grand Theft Auto V' niet hetzelfde als 'Grand Theft Auto 5'.
-##### **Openen van een browser**
+##### Openen van een browser
 Het 'Open Avalible Browser' keyword opent de meegegeven website in eender welke geïnstalleerde browser.
 ```Robot framework
 Open Google in a browser
     Open Available Browser    url=https://www.google.com
     Sleep    2
 ```
-##### **Checken naar een bestaand HTML element**
+##### Checken naar een bestaand HTML element
 Wegens dat er gebruik wordt gemaakt van de google zoekmachine kan het mogelijk zijn dat er een pop-up tevoorschijn komt. Deze zou geaccepteerd moeten worden. Het is mogelijk om deze pop-up te doen verwijderen door op een knop te drukken die 'Ik ga akkoord' heet. Deze knop is taal gebonden. Als de pop-up niet verschijnt gaat de code gewoon door.
 
 Vervolgens wordt er gezocht naar de alternative titel schrijfwijzen van elke game. Dit gebeurt door de game op te zoeken en via Xpath te zoeken naar een html h2 element met als attribute 'data-attrid="title"'.
@@ -170,9 +171,9 @@ Check game alt name
     Set Global Variable    ${Games_alt_name}
     Close Browser
 ```
-#### **Nakijken van recensie score op Gamespot**
+#### Nakijken van recensie score op Gamespot
 Hier wordt voor elke game een recencie score opgezocht op Gamespot.
-##### **Checken van één game**
+##### Checken van één game
 Eerst wordt er voor één game een recensie score opgezocht. Dit gebeurt door via de Gamespot zoekmachine een game titel in te geven. De zoek resultaten worden getoont in een HTML hyperlink element in een h4 element. Via Xpath zoeken we of eender welk van deze combinatie van elementen overeen komt met de game titel. Als dit gevonden is word erop geklikt. Als de game niet wordt gevonden geven we de tekst 'Game not found' mee.
 
 Daarna wordt er op de recensie website van de game de score van Gamespot gelezen er wordt deze meegegeven met eht resultaat van dit keyword.
@@ -200,7 +201,7 @@ Get Gamespots review score
     END
     [Return]    ${result}
 ```
-##### **Checken van een lijst van games**
+##### Checken van een lijst van games
 Als eerst wordt er gekeken of er een pop-up over cookies verschijnt op de website. Na deze te accepteren wordt er met gebruikmakend van het gedeclareerd keyword hierboven voor elke game de recensie opgezocht. Als dit keyword de waarde 'Game not found' terug geeft wordt er gezocht op de alternatieve schijfwijzen.
 
 Deze lijst met game recensies wordt daarna globaal gezet om zo deze later te gebruiken.
@@ -227,7 +228,7 @@ Get Gamespots review scores
     Close Browser
 
 ```
-#### **Wegschrijven van recensies naar een Excel bestand**
+#### Wegschrijven van recensies naar een Excel bestand
 Als laatste worden de game recensies weggeschreven op een gefixeerd plaats in het Excel bestand waar de game titels van gelezen werden.
 ```Robot framework
 Write review score to Excel file
@@ -243,9 +244,9 @@ Write review score to Excel file
     Close Workbook
 ```
 
-### **Steam (Keywords)**
+### Steam (Keywords)
 Hieronder gebeurt alles dat te maken heeft met de Steam applicatie. Het opzoeken van games en het lezen van hun prijzen.
-#### **Openen van een applicatie**
+#### Openen van een applicatie
 Als eerst wordt Steam geopent. Wegens dat Steam altijd in het begin zoekt naar updates kan het soms lang duren (afhankelijk van systeem) vooraleer Steam opstart. Daarom is er een timeout van 60 seconden ingesteld.
 ![Voorbeeld Steam update](images/Example_steam_update.jpg)
 ```Robot framework
@@ -253,7 +254,7 @@ Open Steam
     ${appName}=    Set Variable    Steam
     Open From Search    ${appName}    ${appName}    timeout=60
 ```
-#### **Zoeken van één prijs in Steam**
+#### Zoeken van één prijs in Steam
 Eerst wordt er voor één game een prijs gezocht op Steam. Dit gebeurt door te zoeken naar een GUI element genaamt 'store_nav_search_term'. Dit is de Steam search balk, ook op de website. De store pagina op de Steam applicatie gebruikt eigelijk HTML en heeft dus dezelfde layout en stijl als de website.
 
 Na vinden van dit element wordt de game ingegeven en wordt er op enter gedrukt. Daarna komt er een nieuwe pagina open met zoekresultaten. Dit wordt attribuut wordt opgeslagen in een variabelen om zo de tekst eruit te halen.
@@ -316,7 +317,7 @@ Search for price on Steam
     END
     [Return]    ${price_result}
 ```
-#### **Zoeken van meerdere prijzen in Steam**
+#### Zoeken van meerdere prijzen in Steam
 Net zoals bij de het opzoeken naar de game recencies wordt er voor elke game een prijs opgezocht. Als dit resultaat 'Price not found' heeft wordt er gezocht op de alternatieve schrijfwijzen. Daarna wordt de lijst met resultaten globaal gezet om later weg te schrijven.
 ```Robot framework
 Search for prices on Steam
@@ -335,7 +336,7 @@ Search for prices on Steam
     END
     Set Global Variable    ${Price_results}
 ```
-#### **Wegschrijven van prijzen naar een Excel bestand**
+#### Wegschrijven van prijzen naar een Excel bestand
 Als laatste worden de game prijzen weggeschreven op een gefixeerd plaats in het Excel bestand waar de game titels van gelezen werden.
 ```Robot framework
 Write prices to Excel file
@@ -350,7 +351,7 @@ Write prices to Excel file
     Save Workbook
     Close Workbook
 ```
-### **Samenvoeging (Tasks)**
+### Samenvoeging (Tasks)
 Door nu alle Keywords samen te voegen kunnen we het project gebruiken om recensies en prijzen van video games te zoeken.
 
 ```Robot framework

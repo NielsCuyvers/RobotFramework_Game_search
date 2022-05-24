@@ -24,7 +24,7 @@ Als u de redenering van Robot Framework wilt volgen staat er achter elke titel i
 Documentation     Search review scores on the internet, then search the prices on Steam and send them by mail in an Excel file
 ```
 #### Libraries
-Voor dit proejct maak ik gebruik van de Outlook en Excel libraries van RPA. Dit zorgt er voor dat ik email kan uitlezen met hun bijgevoegde bestanden en dat ik Excel bestanden kan uitlezen om zo data te lezen en weg te schrijven.
+Voor dit project maak ik gebruik van de Outlook en Excel libraries van RPA. Dit zorgt er voor dat ik email kan uitlezen met hun bijgevoegde bestanden en dat ik Excel bestanden kan uitlezen om zo data te lezen en weg te schrijven.
 Er wordt ook gebruik gemaakt van de Collections library zodat er lijsten kunnen aangemaakt worden.
 Ook is het nodig om interactie te hebben met de browsers maar ook met de GUI van Windows. Dit wordt mogelijk gemaakt door de Browser, Desktop, Windows en OperatingSystem libraries. Als laatste wordt er ook gebruik gemaakt van de String library om tekst variabelen op te slagen en de Tables library om data tabellen te maken.
 ```Robot framework
